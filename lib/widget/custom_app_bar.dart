@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String text;
-  const CustomAppBar({Key? key, required this.text}) : super(key: key);
+  final bool isLeading;
+  const CustomAppBar({Key? key, required this.text, this.isLeading = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,7 @@ class CustomAppBar extends StatelessWidget {
       elevation: 0,
       title: Text(text),
       centerTitle: true,
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: isLeading,
     );
   }
 }

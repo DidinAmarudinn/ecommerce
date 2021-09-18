@@ -1,11 +1,13 @@
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/screens/cart_screen.dart';
 import 'package:ecommerce/screens/home/chat_screen.dart';
 import 'package:ecommerce/screens/home/home_screen.dart';
 import 'package:ecommerce/screens/home/profile_screen.dart';
 import 'package:ecommerce/screens/home/wishlist_screen.dart';
 import 'package:ecommerce/widget/custom_bottom_navbar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
   static const routname = "/mainScreen";
@@ -50,7 +52,9 @@ class _MainScreenState extends State<MainScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: secondaryColor,
-        onPressed: () {},
+        onPressed: () {
+          Get.to(() => CartScreen());
+        },
         child: Center(
           child: Image.asset(
             iconCart,

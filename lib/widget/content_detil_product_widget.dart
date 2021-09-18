@@ -1,17 +1,21 @@
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/screens/detail_chat_screen.dart';
 import 'package:ecommerce/widget/custom_button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ContentDetilProductWidget extends StatelessWidget {
   final List familiarShoes;
   final Function onPressedWishlist;
   final bool isWishlist;
+  final Function addToCart;
   const ContentDetilProductWidget(
       {Key? key,
       required this.familiarShoes,
       required this.onPressedWishlist,
-      required this.isWishlist})
+      required this.isWishlist,
+      required this.addToCart})
       : super(key: key);
 
   @override
@@ -73,9 +77,14 @@ class ContentDetilProductWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Image.asset(
-                    isWishlist ? buttonWishlistBlue : buttonWishlist,
-                    width: 46,
+                  GestureDetector(
+                    onTap: () {
+                      onPressedWishlist();
+                    },
+                    child: Image.asset(
+                      isWishlist ? buttonWishlistBlue : buttonWishlist,
+                      width: 46,
+                    ),
                   ),
                 ],
               ),
@@ -175,10 +184,15 @@ class ContentDetilProductWidget extends StatelessWidget {
               margin: EdgeInsets.all(defaultMargin),
               child: Row(
                 children: [
-                  Image.asset(
-                    buttonChat,
-                    height: 54,
-                    width: 54,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => DetailChatScreen());
+                    },
+                    child: Image.asset(
+                      buttonChat,
+                      height: 54,
+                      width: 54,
+                    ),
                   ),
                   SizedBox(
                     width: defaultMargin * 0.8,
@@ -186,7 +200,9 @@ class ContentDetilProductWidget extends StatelessWidget {
                   Expanded(
                     child: CustomButtonWidget(
                       buttonName: "Add to Card",
-                      onPressed: () {},
+                      onPressed: () {
+                        addToCart();
+                      },
                       height: 54,
                       width: double.infinity,
                     ),

@@ -1,5 +1,6 @@
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/widget/alert_widget.dart';
 import 'package:ecommerce/widget/content_detil_product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -31,6 +32,15 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
   bool isWishlist = false;
   @override
   Widget build(BuildContext context) {
+    Future<void> showSuccesDialog() async {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertWidget();
+        },
+      );
+    }
+
     indicator(int index) {
       return Container(
         margin: EdgeInsets.symmetric(
@@ -118,6 +128,9 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
             Expanded(
               child: ContentDetilProductWidget(
                 familiarShoes: familiarShoes,
+                addToCart: () {
+                  showSuccesDialog();
+                },
                 onPressedWishlist: () {
                   setState(() {
                     isWishlist = !isWishlist;
