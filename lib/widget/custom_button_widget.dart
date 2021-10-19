@@ -6,12 +6,14 @@ class CustomButtonWidget extends StatelessWidget {
   final Function onPressed;
   final double height;
   final double width;
+  final bool? isSecondary;
   const CustomButtonWidget(
       {Key? key,
       required this.buttonName,
       required this.onPressed,
       required this.height,
-      required this.width})
+      required this.width,
+      this.isSecondary = false})
       : super(key: key);
 
   @override
@@ -24,7 +26,7 @@ class CustomButtonWidget extends StatelessWidget {
           onPressed();
         },
         style: TextButton.styleFrom(
-          backgroundColor: primaryColor,
+          backgroundColor: isSecondary! ? Color(0xFF39374B) : primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -32,9 +34,9 @@ class CustomButtonWidget extends StatelessWidget {
         child: Text(
           buttonName,
           style: primaryTextStyle.copyWith(
-            fontSize: 16,
-            fontWeight: medium,
-          ),
+              fontSize: 16,
+              fontWeight: medium,
+              color: isSecondary! ? Color(0xFFB7B6BF) : primaryTextColor),
         ),
       ),
     );

@@ -1,7 +1,10 @@
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/model/user_model.dart';
+import 'package:ecommerce/provider/auth_provider.dart';
 import 'package:ecommerce/widget/content_edit_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -44,11 +47,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       );
     }
 
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    User user = authProvider.user.data!.user!;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: backgroundColor3,
       appBar: header(),
       body: ContentEditProfileWidget(
+        user: user,
         textEditingControllerEmail: textEditingControllerEmail,
         textEditingControllerName: textEditingControllerName,
         textEditingControllerUsername: textEditingControllerUsername,

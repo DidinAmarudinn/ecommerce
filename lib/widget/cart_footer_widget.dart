@@ -1,5 +1,7 @@
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CartFooterWidget extends StatelessWidget {
   const CartFooterWidget({Key? key}) : super(key: key);
@@ -38,7 +40,9 @@ class CartFooterWidget extends StatelessWidget {
           Container(
             height: 50,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => CheckoutScreen());
+              },
               style: TextButton.styleFrom(
                 backgroundColor: primaryColor,
                 shape: RoundedRectangleBorder(

@@ -1,9 +1,12 @@
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/model/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductNewArrivalsTile extends StatelessWidget {
-  const ProductNewArrivalsTile({Key? key}) : super(key: key);
+  final ProductModel productModel;
+  const ProductNewArrivalsTile({Key? key, required this.productModel})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +20,8 @@ class ProductNewArrivalsTile extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
-              imageShoes8,
+            child: Image.network(
+              productModel.galleries![0].url!,
               fit: BoxFit.cover,
               height: 120,
               width: 120,
@@ -32,7 +35,7 @@ class ProductNewArrivalsTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Football",
+                  productModel.categoryModel!.name ?? "",
                   style: secondaryTextStyle.copyWith(
                     fontSize: 12,
                   ),
@@ -41,7 +44,7 @@ class ProductNewArrivalsTile extends StatelessWidget {
                   height: defaultMargin / 4,
                 ),
                 Text(
-                  "Predator 20.3 Firm Ground",
+                  productModel.name ?? "",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: primaryTextStyle.copyWith(
@@ -53,7 +56,7 @@ class ProductNewArrivalsTile extends StatelessWidget {
                   height: defaultMargin / 4,
                 ),
                 Text(
-                  "\$54.56",
+                  "\$" + (productModel.price ?? 0.0).toString(),
                   style: princeTextStyle.copyWith(
                     fontWeight: medium,
                   ),

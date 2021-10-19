@@ -1,11 +1,13 @@
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/model/user_model.dart';
 import 'package:ecommerce/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HeaderProfileWidget extends StatelessWidget {
-  const HeaderProfileWidget({Key? key}) : super(key: key);
+  final User user;
+  const HeaderProfileWidget({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,8 @@ class HeaderProfileWidget extends StatelessWidget {
           child: Row(
             children: [
               ClipOval(
-                child: Image.asset(
-                  imageProfile,
+                child: Image.network(
+                  user.profilePhotoUrl!,
                   width: 64,
                 ),
               ),
@@ -34,14 +36,14 @@ class HeaderProfileWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Hallo, Sam",
+                      "Hallo, " + (user.name ?? ""),
                       style: primaryTextStyle.copyWith(
                         fontSize: 24,
                         fontWeight: semiBold,
                       ),
                     ),
                     Text(
-                      "@samganteng",
+                      user.username ?? "",
                       style: subtitleTextStyle.copyWith(
                         fontSize: 16,
                       ),

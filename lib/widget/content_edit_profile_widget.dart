@@ -1,8 +1,10 @@
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/model/user_model.dart';
 import 'package:flutter/material.dart';
 
 class ContentEditProfileWidget extends StatelessWidget {
+  final User user;
   final TextEditingController textEditingControllerName;
   final TextEditingController textEditingControllerUsername;
   final TextEditingController textEditingControllerEmail;
@@ -10,7 +12,8 @@ class ContentEditProfileWidget extends StatelessWidget {
       {Key? key,
       required this.textEditingControllerName,
       required this.textEditingControllerUsername,
-      required this.textEditingControllerEmail})
+      required this.textEditingControllerEmail,
+      required this.user})
       : super(key: key);
 
   @override
@@ -54,16 +57,15 @@ class ContentEditProfileWidget extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: AssetImage(imageProfile),
-              fit: BoxFit.cover,
+              image: NetworkImage(user.profilePhotoUrl!),
+              fit: BoxFit.fill,
             ),
           ),
         ),
-        editProfileInput(textEditingControllerName, "Sam Andreas", "Name"),
+        editProfileInput(textEditingControllerName, user.name ?? "", "Name"),
         editProfileInput(
-            textEditingControllerUsername, "@samganteng", "Username"),
-        editProfileInput(
-            textEditingControllerName, "samganteng@socketspace.com", "Email"),
+            textEditingControllerUsername, user.username ?? "", "Username"),
+        editProfileInput(textEditingControllerName, user.email ?? "", "Email"),
       ]),
     );
   }

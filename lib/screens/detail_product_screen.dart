@@ -1,5 +1,7 @@
+import 'package:ecommerce/common/api_path.dart';
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/model/product_model.dart';
 import 'package:ecommerce/widget/alert_widget.dart';
 import 'package:ecommerce/widget/content_detil_product_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,18 +9,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 
 class DetailProductScreen extends StatefulWidget {
-  const DetailProductScreen({Key? key}) : super(key: key);
+  final ProductModel productModel;
+  const DetailProductScreen({Key? key, required this.productModel})
+      : super(key: key);
 
   @override
   _DetailProductScreenState createState() => _DetailProductScreenState();
 }
 
 class _DetailProductScreenState extends State<DetailProductScreen> {
-  List images = [
-    imageShoes,
-    imageShoes,
-    imageShoes,
-  ];
   List<String> familiarShoes = [
     imageShoes,
     imageShoes2,
@@ -84,10 +83,10 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
             ),
           ),
           CarouselSlider(
-            items: images
+            items: widget.productModel.galleries!
                 .map(
-                  (e) => Image.asset(
-                    e,
+                  (e) => Image.network(
+                    e.url!,
                     width: MediaQuery.of(context).size.width,
                     height: 310,
                     fit: BoxFit.cover,
@@ -109,7 +108,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: images
+            children: widget.productModel.galleries!
                 .asMap()
                 .map((key, value) => MapEntry(key, indicator(key)))
                 .values
@@ -128,6 +127,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
             Expanded(
               child: ContentDetilProductWidget(
                 familiarShoes: familiarShoes,
+                productModel: widget.productModel,
                 addToCart: () {
                   showSuccesDialog();
                 },

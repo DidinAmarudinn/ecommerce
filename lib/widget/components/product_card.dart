@@ -1,10 +1,11 @@
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/model/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
-  final String imageUrl;
-  const ProductCard({Key? key, required this.imageUrl}) : super(key: key);
+  final ProductModel productModel;
+  const ProductCard({Key? key, required this.productModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +24,8 @@ class ProductCard extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          Image.asset(
-            imageUrl,
+          Image.network(
+            productModel.galleries![0].url!,
             height: 150,
             width: 215,
             fit: BoxFit.cover,
@@ -33,7 +34,7 @@ class ProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Hiking",
+                productModel.categoryModel!.name ?? "",
                 style: secondaryTextStyle.copyWith(
                   fontSize: 12,
                 ),
@@ -42,18 +43,19 @@ class ProductCard extends StatelessWidget {
                 height: defaultMargin / 4,
               ),
               Text(
-                "COURT VISION 2.0",
+                productModel.name ?? "",
                 style: blackTextStyle.copyWith(
                   fontSize: 18,
                   fontWeight: semiBold,
                 ),
                 overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
               SizedBox(
                 height: defaultMargin / 4,
               ),
               Text(
-                "\$57.3",
+                "\$" + (productModel.price ?? 0.0).toString(),
                 style: princeTextStyle.copyWith(
                   fontWeight: medium,
                 ),

@@ -1,11 +1,14 @@
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/model/user_model.dart';
+import 'package:ecommerce/provider/auth_provider.dart';
 import 'package:ecommerce/widget/categories_widget.dart';
 import 'package:ecommerce/widget/components/product_tile.dart';
 import 'package:ecommerce/widget/custom_header_widget.dart';
 import 'package:ecommerce/widget/new_arivals_widget.dart';
 import 'package:ecommerce/widget/popular_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,6 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    User user = authProvider.user.data!.user!;
     Widget categoriesWidget() {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: defaultMargin),
@@ -95,8 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Expanded(
                       child: CustomHeaderWidget(
-                        title: "Hallo, Sam",
-                        subTitle: "@samganteng",
+                        title: "Hallo, " + (user.name ?? ""),
+                        subTitle: user.email ?? "",
                       ),
                     ),
                     Container(
@@ -105,8 +110,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(27),
                         image: DecorationImage(
-                          image: AssetImage(
-                            imageProfile,
+                          image: NetworkImage(
+                            user.profilePhotoUrl!,
                           ),
                           fit: BoxFit.cover,
                         ),

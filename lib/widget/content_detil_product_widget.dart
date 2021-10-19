@@ -1,5 +1,6 @@
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/model/product_model.dart';
 import 'package:ecommerce/screens/detail_chat_screen.dart';
 import 'package:ecommerce/widget/custom_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,14 @@ class ContentDetilProductWidget extends StatelessWidget {
   final Function onPressedWishlist;
   final bool isWishlist;
   final Function addToCart;
+  final ProductModel productModel;
   const ContentDetilProductWidget(
       {Key? key,
       required this.familiarShoes,
       required this.onPressedWishlist,
       required this.isWishlist,
-      required this.addToCart})
+      required this.addToCart,
+      required this.productModel})
       : super(key: key);
 
   @override
@@ -62,14 +65,14 @@ class ContentDetilProductWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "TERREX URBAN LOW",
+                          productModel.name ?? "",
                           style: primaryTextStyle.copyWith(
                             fontSize: 18,
                             fontWeight: semiBold,
                           ),
                         ),
                         Text(
-                          "Hiking",
+                          productModel.categoryModel!.name ?? "",
                           style: secondaryTextStyle.copyWith(
                             fontSize: 12,
                           ),
@@ -109,7 +112,7 @@ class ContentDetilProductWidget extends StatelessWidget {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    "\$100",
+                    "\$" + (productModel.price ?? 0.0).toString(),
                     style: princeTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -138,7 +141,7 @@ class ContentDetilProductWidget extends StatelessWidget {
                     height: defaultMargin / 2,
                   ),
                   Text(
-                    "The Better Comments extension will help you create more human-friendly comments in your code. With this extension, you will be able to categorise your annotations into",
+                    productModel.description ?? "",
                     style: subtitleTextStyle.copyWith(
                       fontWeight: light,
                     ),

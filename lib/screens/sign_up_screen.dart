@@ -1,11 +1,15 @@
 import 'package:ecommerce/common/assets_path.dart';
 import 'package:ecommerce/common/theme.dart';
+import 'package:ecommerce/provider/auth_provider.dart';
+import 'package:ecommerce/screens/home/main_screen.dart';
 import 'package:ecommerce/screens/sign_in_screen.dart';
 import 'package:ecommerce/widget/custom_button_widget.dart';
 import 'package:ecommerce/widget/custom_header_widget.dart';
 import 'package:ecommerce/widget/custom_textfielld_widget.dart';
+import 'package:ecommerce/widget/loading_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routname = "/signUpScreen";
@@ -23,8 +27,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       TextEditingController();
   TextEditingController _textEditingControllerUsername =
       TextEditingController();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: backgroundColor1,
       body: SafeArea(
@@ -80,12 +86,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(
               height: defaultMargin,
             ),
-            CustomButtonWidget(
-              buttonName: "Sign Up",
-              height: 50,
-              width: double.infinity,
-              onPressed: () {},
-            ),
+            isLoading
+                ? LoadingButton()
+                : CustomButtonWidget(
+                    buttonName: "Sign Up",
+                    height: 50,
+                    width: double.infinity,
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      bool value = await authProvider.register(
+                          _textEditingControllerFullName.text,
+                          _textEditingControllerUsername.text,
+                          _textEditingControllerEmail.text,
+                          _textEditingControllerPassword.text);
+
+                      if (value) {
+                        Get.off(() => MainScreen(initialPage: 0));
+                      } else {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Registrasi Gagal"),
+                          backgroundColor: alertColor,
+                        ));
+                      }
+                    },
+                  ),
             SizedBox(
               height: defaultMargin / 2,
             ),
